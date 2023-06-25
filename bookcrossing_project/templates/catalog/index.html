@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <h1 class="mt-5">Список книг</h1>
+    <div class="row mt-4">
+      {% for book in books reversed %}
+        {% include 'includes/book_card.html' %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

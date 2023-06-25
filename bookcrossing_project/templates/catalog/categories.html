@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>BookCrossing - Информация о категориях</title>{% endblock %}
+{% block content %}
+
+  <div class="container mt-5">
+    <h1>Информация о категориях</h1>
+    <div class="row">
+      {% for category in categories %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">{{ category.title }}</h5>
+              <p class="card-text">{{ category.description }}</p>
+              <p class="card-text">Количество книг из этой категории: {{ category.books_count }}</p>
+              <a href="{% url 'catalog:category_detail' forloop.counter %}" class="btn btn-primary">Просмотреть</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,3 +1,6 @@
+from django.shortcuts import render
+from django.http import Http404
+
 BOOKS = [
     {
         'id': 0,
@@ -292,3 +295,36 @@ CATEGORIES = [
         'books_count': 2
     }
 ]
+
+
+def index_view(request):
+    context = {'books': BOOKS}
+    return render(request, 'catalog/index.html', context)
+
+
+def categories_view(request):
+    context = {'categories': CATEGORIES}
+    return render(request, 'catalog/categories.html', context)
+
+
+def category_detail_view(request, id):
+    try:
+        category = CATEGORIES[id]
+    except IndexError:
+        raise Http404
+    category_books = []
+    for book in BOOKS:
+        if category['title'] in book['category']:
+            category_books.append(book)
+    context = {'books': category_books}
+    return render(request, 'catalog/category.html', context)
+
+
+def book_detail_view(request, id):
+    try:
+        book = BOOKS[id]
+    except IndexError:
+        raise Http404
+    context = {'book': book}
+    return render(request, 'catalog/book.html', context)
+
